@@ -1,6 +1,6 @@
 ﻿namespace AsyncInnManagementSystem.Models.Interfaces
 {
-    public interface Hotels
+    public interface IHotels
     {
         //create
         Task<Hotel>Create(Hotel hotel);

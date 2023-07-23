@@ -44,3 +44,43 @@ You can check it by using that end point
 
  ## Contributions
 Contributions to the Async Inn Management System are welcome! If you find any bugs or have ideas for enhancements, feel free to contact me .
+ 
+
+##  Architecture Pattern: Repository Design Pattern
+The Repository Design Pattern is a software design pattern that separates the data access logic from the rest of the application. It acts as an intermediary between the data source (database) and the application's business logic. The pattern allows for better organization of data access code and promotes code reusability.
+
+### How it is used in the app:
+- Interfaces for Controllers: For each of the controllers (Hotels, Rooms, Amenities), we have defined an interface that contains the required method signatures for performing CRUD operations directly on the database. These interfaces provide a contract for data access.
+
+- Dependency Injection: The controllers have been refactored to depend on these interfaces rather than directly on the HotelDbContext. This promotes loose coupling between the controllers and the data access layer, making it easier to swap out data access implementations without affecting the controllers.
+
+- Service Implementation: For each of the controllers, we have created a corresponding service class that implements the respective interface. The service classes contain the logic to satisfy the interface requirements and perform database operations using the HotelDbContext.
+
+- Controller Update: The controllers have been updated to use the appropriate methods from the service classes instead of directly accessing the HotelDbContext. This ensures that data access logic is centralized in the service classes and not scattered throughout the controllers.
+
+
+### Endpoints:
+ ### Hotels:
+
+- GET /api/Hotels: Get all hotels.
+- GET /api/Hotels/{id}: Get a specific hotel by id.
+- POST /api/Hotels: Create a new hotel.
+- PUT /api/Hotels/{id}: Update an existing hotel.
+- DELETE /api/Hotels/{id}: Delete a hotel.
+ ### Rooms:
+
+- GET /api/Rooms: Get all rooms.
+- GET /api/Rooms/{id}: Get a specific room by id.
+- POST /api/Rooms: Create a new room.
+- PUT /api/Rooms/{id}: Update an existing room.
+- DELETE /api/Rooms/{id}: Delete a room.
+### Amenities:
+
+- GET /api/Amenities: Get all amenities.
+- GET /api/Amenities/{id}: Get a specific amenity by id.
+- POST /api/Amenities: Create a new amenity.
+- PUT /api/Amenities/{id}: Update an existing amenity.
+- DELETE /api/Amenities/{id}: Delete an amenity.
+### Postman Testing:
+Use Postman to test the different endpoints by sending HTTP requests to the appropriate URLs with JSON payloads for creating and updating data. Make sure to include the required headers and ensure that the data is correctly formatted as per the API specifications(Check Headers:
+Verify that the Content-Type header is correctly set to "application/json" in the request. This header tells the server that the request body contains JSON data.).
