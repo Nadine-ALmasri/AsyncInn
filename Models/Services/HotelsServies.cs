@@ -2,6 +2,7 @@
 using AsyncInnManagementSystem.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace AsyncInnManagementSystem.Models.Services
 {
     public class HotelsServies : IHotels
@@ -46,6 +47,7 @@ namespace AsyncInnManagementSystem.Models.Services
             _context.Entry(hotel).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return hotel;
+
         }
     }
 }
