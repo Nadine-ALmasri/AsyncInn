@@ -1,32 +1,53 @@
-﻿using AsyncInnManagementSystem.Models.Interfaces;
+﻿using AsyncInnManagementSystem.Data;
+using AsyncInnManagementSystem.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace AsyncInnManagementSystem.Models.Services
 {
     public class HotelsServies : IHotels
     {
-        public Task<Hotel> Create(Hotel hotel)
+        private readonly HotelDbContext _context;
+
+        public HotelsServies(HotelDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task<Hotel> Create(Hotel hotel)
+        {
+           _context.Hotels.AddAsync(hotel);
+            await _context.SaveChangesAsync();
+            return hotel;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
+
         {
-            throw new NotImplementedException();
+            Hotel hotel = await GetById(id);
+
+            _context.Entry(hotel).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
+                }
+
+        public async Task<List<Hotel>> GetAll()
+        {
+           var hotels =await _context.Hotels.ToListAsync();
+            return hotels;
         }
 
-        public Task<List<Hotel>> GetAll()
+        public async Task<Hotel> GetById(int id)
         {
-            throw new NotImplementedException();
+           var hotel =await _context.Hotels.FindAsync(id);
+            return hotel;
+
         }
 
-        public Task<Hotel> GetById(int id)
+        public async Task<Hotel> UpdateHotels(int id, Hotel hotel)
         {
-            throw new NotImplementedException();
-        }
+            _context.Entry(hotel).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return hotel;
 
-        public Task<Hotel> UpdateHotels(int id, Hotel hotel)
-        {
-            throw new NotImplementedException();
         }
     }
 }
