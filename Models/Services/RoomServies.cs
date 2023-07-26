@@ -28,7 +28,7 @@ _context.Rooms.AddAsync(room);
 
         public async Task<List<Room>> GetAllRooms()
         {
-            var AllRooms = await _context.Rooms.ToListAsync();
+            var AllRooms = await _context.Rooms.Include(x => x.RoomAmenities).ToListAsync();
                 return AllRooms;
         }
 
@@ -44,5 +44,36 @@ _context.Rooms.AddAsync(room);
         await _context.SaveChangesAsync();
             return room;
         }
+        public async Task AddAmenityToRoom(int roomId, int amenityId)
+        {
+            var room = await _context.Rooms
+                .Include(r => r.RoomAmenities)
+                .FirstOrDefaultAsync(r => r.Id == roomId);
+
+            var amenity = await _context.Amenities.FindAsync(amenityId);
+
+            if (room != null && amenity != null)
+            {
+                var roomAmenity = new RoomAmenity { RoomId = roomId, AmenityId = amenityId };
+                room.RoomAmenities.Add(roomAmenity);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task RemoveAmenityFromRoom(int roomId, int amenityId)
+        {
+            var room = await _context.Rooms
+                .Include(r => r.RoomAmenities)
+                .FirstOrDefaultAsync(r => r.Id == roomId);
+
+            var roomAmenity = room?.RoomAmenities.FirstOrDefault(ra => ra.AmenityId == amenityId);
+
+            if (roomAmenity != null)
+            {
+                room.RoomAmenities.Remove(roomAmenity);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
+

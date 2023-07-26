@@ -3,6 +3,7 @@ using AsyncInnManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncInnManagementSystem.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230726110813_AddHotelRoomTableAndNP")]
+    partial class AddHotelRoomTableAndNP
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,7 +139,6 @@ namespace AsyncInnManagementSystem.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Rate")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("RoomNumber")
@@ -207,7 +209,7 @@ namespace AsyncInnManagementSystem.Migrations
             modelBuilder.Entity("AsyncInnManagementSystem.Models.HotelRoom", b =>
                 {
                     b.HasOne("AsyncInnManagementSystem.Models.Hotel", "Hotel")
-                        .WithMany("HotelRooms")
+                        .WithMany()
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -240,11 +242,6 @@ namespace AsyncInnManagementSystem.Migrations
                     b.Navigation("Amenity");
 
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("AsyncInnManagementSystem.Models.Hotel", b =>
-                {
-                    b.Navigation("HotelRooms");
                 });
 
             modelBuilder.Entity("AsyncInnManagementSystem.Models.Room", b =>
