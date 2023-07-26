@@ -59,11 +59,32 @@ namespace AsyncInnManagementSystem.Data
                Name = "big sofa"
            }
             );
+            modelBuilder.Entity<RoomAmenity>().HasKey(
+               RoomAmenities => new { RoomAmenities.RoomId, RoomAmenities.AmenityId });
+        
+
+
+        modelBuilder.Entity<HotelRoom>().HasKey(
+              HotelRooms => new { HotelRooms.RoomId, HotelRooms.HotelId
+    });
+
+            modelBuilder.Entity<HotelRoom>()
+                .Property(hotelRoom => hotelRoom.Rate)
+                .HasPrecision(18, 2); // Specify the appropriate precision and scale
+            
+
+           
+            modelBuilder.Entity<HotelRoom>()
+                .HasOne(hr => hr.Hotel)
+                .WithMany(h => h.HotelRooms)
+                .HasForeignKey(hr => hr.HotelId);
         }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
 
         public DbSet<Amenity> Amenities { get; set; }
+        public DbSet<RoomAmenity> RoomAmenities { get; set; }
+        public DbSet<HotelRoom> HotelRooms { get; set; }
 
     }
 }

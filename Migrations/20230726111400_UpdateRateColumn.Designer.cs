@@ -3,6 +3,7 @@ using AsyncInnManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncInnManagementSystem.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230726111400_UpdateRateColumn")]
+    partial class UpdateRateColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,7 +210,7 @@ namespace AsyncInnManagementSystem.Migrations
             modelBuilder.Entity("AsyncInnManagementSystem.Models.HotelRoom", b =>
                 {
                     b.HasOne("AsyncInnManagementSystem.Models.Hotel", "Hotel")
-                        .WithMany("HotelRooms")
+                        .WithMany()
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -240,11 +243,6 @@ namespace AsyncInnManagementSystem.Migrations
                     b.Navigation("Amenity");
 
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("AsyncInnManagementSystem.Models.Hotel", b =>
-                {
-                    b.Navigation("HotelRooms");
                 });
 
             modelBuilder.Entity("AsyncInnManagementSystem.Models.Room", b =>

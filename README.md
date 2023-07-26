@@ -81,6 +81,41 @@ The Repository Design Pattern is a software design pattern that separates the da
 - POST /api/Amenities: Create a new amenity.
 - PUT /api/Amenities/{id}: Update an existing amenity.
 - DELETE /api/Amenities/{id}: Delete an amenity.
+## Routse for lab-14:
+- GET: /api/Hotels/{hotelId}/Rooms
+
+Action: GetRoomsByHotel(int hotelId)
+Description: Retrieves all rooms for a specific hotel.
+
+- POST: /api/Hotels/{hotelId}/Rooms
+
+Action: AddRoomToHotel(int hotelId, HotelRoom room)
+Description: Adds a room to a specific hotel.
+
+- GET: /api/Hotels/{hotelId}/Rooms/{roomNumber}
+
+Action: GetRoomByNumber(int hotelId, int roomNumber)
+Description: Retrieves a specific room by its number in a hotel.
+
+- PUT: /api/Hotels/{hotelId}/Rooms/{roomNumber}
+
+Action: UpdateRoomDetails(int hotelId, int roomNumber, HotelRoom room)
+Description: Updates the details of a specific room in a hotel.
+
+- DELETE: /api/Hotels/{hotelId}/Rooms/{roomNumber}
+
+Action: DeleteRoomFromHotel(int hotelId, int roomNumber)
+Description: Deletes a specific room from a hotel.
+
+- POST: /api/Rooms/{roomId}/Amenity/{amenityId}
+
+Action: AddAmenityToRoom(int roomId, int amenityId)
+Description: Adds an amenity to a specific room.
+
+- DELETE: /api/Rooms/{roomId}/Amenity/{amenityId}
+
+Action: RemoveAmenityFromRoom(int roomId, int amenityId)
+Description: Removes an amenity from a specific room.
 ### Postman Testing:
 Use Postman to test the different endpoints by sending HTTP requests to the appropriate URLs with JSON payloads for creating and updating data. Make sure to include the required headers and ensure that the data is correctly formatted as per the API specifications(Check Headers:
 Verify that the Content-Type header is correctly set to "application/json" in the request. This header tells the server that the request body contains JSON data.).
