@@ -9,6 +9,7 @@ using AsyncInnManagementSystem.Data;
 using AsyncInnManagementSystem.Models;
 using AsyncInnManagementSystem.Models.Interfaces;
 using Microsoft.VisualBasic;
+using AsyncInnManagementSystem.Models.DTO;
 
 namespace AsyncInnManagementSystem.Controller
 {
@@ -25,7 +26,7 @@ namespace AsyncInnManagementSystem.Controller
 
         // GET: api/Amenities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenities()
+        public async Task<ActionResult<IEnumerable<AmenityDTO>>> GetAmenities()
         {
          
             return await _amenity.GetAllAmenities();
@@ -33,7 +34,7 @@ namespace AsyncInnManagementSystem.Controller
 
         // GET: api/Amenities/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Amenity>> GetAmenity(int id)
+        public async Task<ActionResult<AmenityDTO>> GetAmenity(int id)
         {
         var amenity = await _amenity.GetAmenityById(id);
 
@@ -43,9 +44,9 @@ namespace AsyncInnManagementSystem.Controller
         // PUT: api/Amenities/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAmenity(int id, Amenity amenity)
+        public async Task<IActionResult> PutAmenity(int id, AmenityDTO amenity)
         {
-            if (id != amenity.Id)
+            if (id != amenity.ID)
             {
                 return BadRequest();
             }
@@ -58,11 +59,11 @@ namespace AsyncInnManagementSystem.Controller
         // POST: api/Amenities
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Amenity>> PostAmenity(Amenity amenity)
+        public async Task<ActionResult<AmenityDTO>> PostAmenity(AmenityDTO amenity)
         {
           await _amenity.CreateAmenity(amenity);
 
-            return CreatedAtAction("GetAmenity", new { id = amenity.Id }, amenity);
+            return CreatedAtAction("GetAmenity", new { id = amenity.ID }, amenity);
         }
 
         // DELETE: api/Amenities/5

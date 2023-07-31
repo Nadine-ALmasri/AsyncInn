@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncInnManagementSystem.Data;
 using AsyncInnManagementSystem.Models;
 using AsyncInnManagementSystem.Models.Interfaces;
+using AsyncInnManagementSystem.Models.DTO;
 
 namespace AsyncInnManagementSystem.Controller
 {
@@ -24,7 +25,7 @@ namespace AsyncInnManagementSystem.Controller
 
         // GET: api/Hotels/{hotelId}/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HotelRoom>>> GetHotelRooms(int hotelId)
+        public async Task<ActionResult<IEnumerable<HotelRoomDTO>>> GetHotelRooms(int hotelId)
         {
          
             return await _HotelRoom.GetAllHotelRoom(hotelId);
@@ -33,7 +34,7 @@ namespace AsyncInnManagementSystem.Controller
         // GET: api/Hotels/{hotelId}/Rooms/5
         [HttpGet("/api/Hotels/{hotelId}/Rooms/{roomNumber}")]
 
-        public async Task<ActionResult<HotelRoom>> GetHotelRoom(int hotelId, int roomNumber)
+        public async Task<ActionResult<HotelRoomDTO>> GetHotelRoom(int hotelId, int roomNumber)
         {
             var room = await _HotelRoom.GetRoomDetails(hotelId, roomNumber);
             if (room == null)
@@ -46,14 +47,14 @@ namespace AsyncInnManagementSystem.Controller
         // PUT: api/Hotels/{hotelId}/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{roomNumber}")]
-        public async Task<IActionResult> PutHotelRoom(int hotelId, int roomNumber, HotelRoom room)
+        public async Task<IActionResult> PutHotelRoom(int hotelId, int roomNumber, HotelRoomDTO roomDTO)
         {
-            if (roomNumber != room.RoomNumber)
+            if (roomNumber != roomDTO.RoomNumber)
             {
                 return BadRequest();
             }
 
-            var updatedRoom = await _HotelRoom.UpdateHotelsRoom(hotelId, roomNumber, room);
+            var updatedRoom = await _HotelRoom.UpdateHotelsRoom(hotelId, roomNumber, roomDTO);
             if (updatedRoom == null)
             {
                 return NotFound();
@@ -65,9 +66,9 @@ namespace AsyncInnManagementSystem.Controller
         // POST: api/Hotels/{hotelId}/Rooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<HotelRoom>> PostHotelRoom(int hotelId, HotelRoom HotelRoom)
+        public async Task<ActionResult<HotelRoomDTO>> PostHotelRoom(int hotelId, HotelRoomDTO HotelRoomDTO)
         {
-         var addedRoom = await _HotelRoom.CreateHotelRoom(hotelId, HotelRoom);
+         var addedRoom = await _HotelRoom.CreateHotelRoom(hotelId, HotelRoomDTO);
             if (addedRoom == null)
             {
                 return NotFound();

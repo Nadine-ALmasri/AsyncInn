@@ -48,7 +48,6 @@ namespace AsyncInnManagementSystem.Models.Services
                 State = hotelDTO.State,
                 StreetAddress = hotelDTO.StreetAddress,
                 Phone = hotelDTO.Phone
-                // You can copy other properties if needed.
             };
            
 
