@@ -31,7 +31,8 @@ namespace AsyncInnManagementSystem.Controller
         }
 
         // GET: api/Hotels/{hotelId}/Rooms/5
-        [HttpGet("{id}")]
+        [HttpGet("/api/Hotels/{hotelId}/Rooms/{roomNumber}")]
+
         public async Task<ActionResult<HotelRoom>> GetHotelRoom(int hotelId, int roomNumber)
         {
             var room = await _HotelRoom.GetRoomDetails(hotelId, roomNumber);
@@ -44,7 +45,7 @@ namespace AsyncInnManagementSystem.Controller
 
         // PUT: api/Hotels/{hotelId}/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("{roomNumber}")]
         public async Task<IActionResult> PutHotelRoom(int hotelId, int roomNumber, HotelRoom room)
         {
             if (roomNumber != room.RoomNumber)
@@ -59,7 +60,6 @@ namespace AsyncInnManagementSystem.Controller
             }
             return NoContent();
 
-            return NoContent();
         }
 
         // POST: api/Hotels/{hotelId}/Rooms
@@ -72,17 +72,22 @@ namespace AsyncInnManagementSystem.Controller
             {
                 return NotFound();
             }
-            return CreatedAtAction(("GetRoomDetails"), new { hotelId, roomNumber = addedRoom.RoomNumber }, addedRoom);
+            return Ok (addedRoom);
 
         }
 
         // DELETE: api/Hotels/{hotelId}/Rooms/5
-        [HttpDelete("{id}")]
+        [HttpDelete()]
+        [Route("/api/Hotels/{hotelId}/Rooms/{roomNumber}")]
+
         public async Task<IActionResult> DeleteHotelRoom(int hotelId, int roomNumber)
         {
-           
+            if (_HotelRoom == null)
+            {
+                return NotFound();
+            }
 
-           _HotelRoom.DeleteHotelRoom(hotelId, roomNumber);
+            await   _HotelRoom.DeleteHotelRoom(hotelId, roomNumber);
 
             return NoContent();
         }

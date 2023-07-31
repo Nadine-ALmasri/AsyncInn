@@ -17,7 +17,13 @@ namespace AsyncInnManagementSystem.Data
             modelBuilder.Entity<Hotel>().HasData(
             new Hotel
             {
-                Id = 1, Name = "Marriot", City = "AMMAN", country = "Jordan", StreetAddress = "12.456", Phone = "01345775", State = "west"
+                Id = 1,
+                Name = "Marriot",
+                City = "AMMAN",
+                country = "Jordan",
+                StreetAddress = "12.456",
+                Phone = "01345775",
+                State = "west"
             },
              new Hotel
              {
@@ -39,16 +45,17 @@ namespace AsyncInnManagementSystem.Data
                  Phone = "154545454",
                  State = "south"
              }
-            ) ;
+            );
 
             modelBuilder.Entity<Room>().HasData(
-         new Room { Id=1 , Layout=1 , Name ="first Room"}, new Room { Id = 2, Layout = 3, Name = "secound Room" }, new Room { Id = 3, Layout = 1, Name = "third Room" }
+         new Room { Id = 1, Layout = 1, Name = "first Room" }, new Room { Id = 2, Layout = 3, Name = "secound Room" }, new Room { Id = 3, Layout = 1, Name = "third Room" }
             );
 
             modelBuilder.Entity<Amenity>().HasData(
            new Amenity
            {
-               Id=1,Name="condition"
+               Id = 1,
+               Name = "condition"
            }, new Amenity
            {
                Id = 2,
@@ -61,23 +68,30 @@ namespace AsyncInnManagementSystem.Data
             );
             modelBuilder.Entity<RoomAmenity>().HasKey(
                RoomAmenities => new { RoomAmenities.RoomId, RoomAmenities.AmenityId });
-        
 
 
-        modelBuilder.Entity<HotelRoom>().HasKey(
-              HotelRooms => new { HotelRooms.RoomId, HotelRooms.HotelId
-    });
+
+            modelBuilder.Entity<HotelRoom>().HasKey(
+                  HotelRooms => new
+                  {
+                      HotelRooms.RoomId,
+                      HotelRooms.RoomNumber
+                  });
 
             modelBuilder.Entity<HotelRoom>()
                 .Property(hotelRoom => hotelRoom.Rate)
                 .HasPrecision(18, 2); // Specify the appropriate precision and scale
-            
 
-           
-            modelBuilder.Entity<HotelRoom>()
-                .HasOne(hr => hr.Hotel)
-                .WithMany(h => h.HotelRooms)
-                .HasForeignKey(hr => hr.HotelId);
+
+
+            modelBuilder.Entity<HotelRoom>().HasKey(
+               Keys => new
+               {
+                   Keys.HotelId,
+                   Keys.RoomNumber
+
+
+               });
         }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Hotel> Hotels { get; set; }

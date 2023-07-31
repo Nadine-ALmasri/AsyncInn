@@ -1,4 +1,6 @@
-﻿namespace AsyncInnManagementSystem.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AsyncInnManagementSystem.Models
 {
     public class RoomAmenity
     {
@@ -7,7 +9,8 @@
         public int RoomId { get; set; }
 
         // Navigation properties
-        public Room Room { get; set; }
-        public Amenity Amenity { get; set; }
+        public Room? Room { get; set; }
+
+        public Amenity? Amenity { get; set; }
     }
 }
