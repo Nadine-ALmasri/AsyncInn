@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncInnManagementSystem.Data;
 using AsyncInnManagementSystem.Models;
 using AsyncInnManagementSystem.Models.Interfaces;
+using AsyncInnManagementSystem.Models.DTO;
 
 namespace AsyncInnManagementSystem.Controller
 {
@@ -24,14 +25,14 @@ namespace AsyncInnManagementSystem.Controller
 
         // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+        public async Task<ActionResult<IEnumerable<RoomDTO>>> GetRooms()
         {
           return await _room.GetAllRooms();
         }
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        public async Task<ActionResult<RoomDTO>> GetRoom(int id)
         {
             var room =await _room.GetRoomById(id);
             return room;
@@ -40,9 +41,9 @@ namespace AsyncInnManagementSystem.Controller
         // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoom(int id, Room room)
+        public async Task<IActionResult> PutRoom(int id, RoomDTO room)
         {
-            if (id != room.Id)
+            if (id != room.ID)
             {
                 return BadRequest();
             }
@@ -55,11 +56,11 @@ namespace AsyncInnManagementSystem.Controller
         // POST: api/Rooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Room>> PostRoom(Room room)
+        public async Task<ActionResult<RoomDTO>> PostRoom(RoomDTO roomDTO)
         {
-       await  _room.Create(room);
+       await  _room.Create(roomDTO);
 
-            return CreatedAtAction("GetRoom", new { id = room.Id }, room);
+            return CreatedAtAction("GetRoom", new { id = roomDTO.ID }, roomDTO);
         }
 
         // DELETE: api/Rooms/5

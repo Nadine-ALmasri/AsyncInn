@@ -119,3 +119,104 @@ Description: Removes an amenity from a specific room.
 ### Postman Testing:
 Use Postman to test the different endpoints by sending HTTP requests to the appropriate URLs with JSON payloads for creating and updating data. Make sure to include the required headers and ensure that the data is correctly formatted as per the API specifications(Check Headers:
 Verify that the Content-Type header is correctly set to "application/json" in the request. This header tells the server that the request body contains JSON data.).
+## Lab 16 :
+### Hotels
+
+#### GET /api/Hotels/{id}
+
+Retrieve information about a specific hotel.
+![](./lab16-1.PNG)
+### GET /api/Hotels
+Retrieve a list of all hotels.
+![](./lab16-2.PNG)
+### HotelRooms
+GET /api/Hotels/{hotelId}/Rooms/{roomNumber}
+Retrieve information about a specific hotel room.
+
+PUT /api/Hotels/{hotelId}/Rooms/{roomNumber}
+Update information about a specific hotel room.
+
+DELETE /api/Hotels/{hotelId}/Rooms/{roomNumber}
+Delete a hotel room.
+
+GET /api/Hotels/{hotelId}/Rooms
+Retrieve a list of all rooms for a hotel.
+
+POST /api/Hotels/{hotelId}/Rooms
+Add a new room to a hotel.
+
+Request Body:
+
+                        {
+                                    "hotelID": 1002,
+                                    "roomNumber":1,
+                                    "rate": 100.5,
+                                    "petFriendly": true,
+                                    "roomID": 3,
+                                    "room": {
+                                        "id": 3,
+                                        "name": "third Room",
+                                        "layout": 1,
+                                        "amenities": [
+                                            {
+                                                "id": 2,
+                                                "name": "coffee and tea"
+                                            }
+                                        ]
+                                    }}
+
+
+![](./lab16-3.PNG)
+
+ ### Rooms
+ GET /api/Rooms/{roomId}
+Retrieve information about a specific room.
+
+PUT /api/Rooms/{roomId}
+Update information about a specific room.
+
+GET /api/rooms
+Retrieve a list of all rooms.
+
+POST /api/rooms
+Create a new room.
+
+Request Body:
+
+         {
+                "id": 5,
+                "name": "fifth Room",
+                "layout": 3,
+                "amenities": [
+                    {
+                        "id": 2,
+                        "name": "coffee and tea"
+                    }
+                ]
+            }
+Result:
+
+![](./lab16-4.PNG)
+
+
+
+### Amenities
+GET /api/amenities/{id}
+Retrieve information about a specific amenity.
+
+GET /api/amenities
+Retrieve a list of all amenities.
+
+POST /api/amenities
+Create a new general amenity.
+
+Request Body:
+
+     {
+    
+        "name": "Coffee corner"
+    }
+
+Result :
+
+![](./lab16-5.PNG)
