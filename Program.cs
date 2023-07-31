@@ -17,11 +17,14 @@ namespace AsyncInnManagementSystem
             builder.Services.AddControllers();
             string ConnString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<HotelDbContext>(options => options.UseSqlServer(ConnString));
-          
+            builder.Services.AddControllers().AddNewtonsoftJson(options =>
+         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+       );
             // Other service registrations...
             builder.Services.AddTransient<IHotels, HotelsServies>();
             builder.Services.AddTransient<IRoom, RoomServies>();
             builder.Services.AddTransient<IAmenities, AmenitiesServies>();
+          builder.Services.AddTransient<IHotelRoom, HotelRoomServies>();
 
             var app = builder.Build();
             app.MapControllers();

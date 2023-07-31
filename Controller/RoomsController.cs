@@ -70,7 +70,21 @@ namespace AsyncInnManagementSystem.Controller
 
             return NoContent();
         }
+        // POST: api/Rooms/{roomId}/Amenity/{amenityId}
+        [HttpPost("{roomId}/Amenity/{amenityId}")]
+        public async Task<IActionResult> AddAmenityToRoom(int roomId, int amenityId)
+        {
+            await _room.AddAmenityToRoom(roomId, amenityId);
+            return NoContent();
+        }
 
-        
+        // DELETE: api/Rooms/{roomId}/Amenity/{amenityId}
+        [HttpDelete("{roomId}/Amenity/{amenityId}")]
+        public async Task<IActionResult> RemoveAmenityFromRoom(int roomId, int amenityId)
+        {
+            await _room.RemoveAmenityFromRoom(roomId, amenityId);
+            return NoContent();
+        }
+
     }
 }

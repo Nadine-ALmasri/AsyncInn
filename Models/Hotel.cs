@@ -9,6 +9,7 @@
         public string State { get; set; }
         public string country { get; set; }
         public string Phone { get; set; }
+        public List<HotelRoom>? HotelRooms { get; set; }
 
 
     }

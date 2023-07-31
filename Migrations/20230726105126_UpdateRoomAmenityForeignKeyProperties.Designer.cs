@@ -3,6 +3,7 @@ using AsyncInnManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncInnManagementSystem.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230726105126_UpdateRoomAmenityForeignKeyProperties")]
+    partial class UpdateRoomAmenityForeignKeyProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +38,7 @@ namespace AsyncInnManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Amenities", (string)null);
+                    b.ToTable("Amenities");
 
                     b.HasData(
                         new
@@ -89,7 +92,7 @@ namespace AsyncInnManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hotels", (string)null);
+                    b.ToTable("Hotels");
 
                     b.HasData(
                         new
@@ -124,31 +127,6 @@ namespace AsyncInnManagementSystem.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AsyncInnManagementSystem.Models.HotelRoom", b =>
-                {
-                    b.Property<int>("HotelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoomNumber")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("PetFrindly")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("Rate")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
-                    b.HasKey("HotelId", "RoomNumber");
-
-                    b.HasIndex("RoomId");
-
-                    b.ToTable("HotelRooms", (string)null);
-                });
-
             modelBuilder.Entity("AsyncInnManagementSystem.Models.Room", b =>
                 {
                     b.Property<int>("Id")
@@ -166,7 +144,7 @@ namespace AsyncInnManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rooms", (string)null);
+                    b.ToTable("Rooms");
 
                     b.HasData(
                         new
@@ -201,26 +179,7 @@ namespace AsyncInnManagementSystem.Migrations
 
                     b.HasIndex("AmenityId");
 
-                    b.ToTable("RoomAmenities", (string)null);
-                });
-
-            modelBuilder.Entity("AsyncInnManagementSystem.Models.HotelRoom", b =>
-                {
-                    b.HasOne("AsyncInnManagementSystem.Models.Hotel", "Hotel")
-                        .WithMany("HotelRooms")
-                        .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AsyncInnManagementSystem.Models.Room", "Room")
-                        .WithMany("HotelRooms")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Hotel");
-
-                    b.Navigation("Room");
+                    b.ToTable("RoomAmenities");
                 });
 
             modelBuilder.Entity("AsyncInnManagementSystem.Models.RoomAmenity", b =>
@@ -232,7 +191,7 @@ namespace AsyncInnManagementSystem.Migrations
                         .IsRequired();
 
                     b.HasOne("AsyncInnManagementSystem.Models.Room", "Room")
-                        .WithMany("RoomAmenities")
+                        .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -240,18 +199,6 @@ namespace AsyncInnManagementSystem.Migrations
                     b.Navigation("Amenity");
 
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("AsyncInnManagementSystem.Models.Hotel", b =>
-                {
-                    b.Navigation("HotelRooms");
-                });
-
-            modelBuilder.Entity("AsyncInnManagementSystem.Models.Room", b =>
-                {
-                    b.Navigation("HotelRooms");
-
-                    b.Navigation("RoomAmenities");
                 });
 #pragma warning restore 612, 618
         }
