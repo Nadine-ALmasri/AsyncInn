@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncInnManagementSystem.Data;
 using AsyncInnManagementSystem.Models;
 using AsyncInnManagementSystem.Models.Interfaces;
+using AsyncInnManagementSystem.Models.DTO;
 
 namespace AsyncInnManagementSystem.Controller
 {
@@ -24,15 +25,16 @@ namespace AsyncInnManagementSystem.Controller
 
         // GET: api/Hotels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
+        public async Task<ActionResult<IEnumerable<HotelDTO>>> GetHotels()
         {
          
-            return await _hotel.GetAll();
+           var list = await _hotel.GetAll();
+            return Ok(list);
         }
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hotel>> GetHotel(int id)
+        public async Task<ActionResult<HotelDTO>> GetHotel(int id)
         {
           
             var hotel = await _hotel.GetById(id);
@@ -43,25 +45,25 @@ namespace AsyncInnManagementSystem.Controller
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(int id, Hotel hotel)
+        public async Task<IActionResult> PutHotel(int id, HotelDTO hotelDTO)
         {
-            if (id != hotel.Id)
+            if (id != hotelDTO.ID)
             {
                 return BadRequest();
             }
 
-            var updatedCourse = await _hotel.UpdateHotels(id, hotel);
+            var updatedCourse = await _hotel.UpdateHotels(id, hotelDTO);
             return Ok(updatedCourse);
         }
 
         // POST: api/Hotels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
+        public async Task<ActionResult<Hotel>> PostHotel(HotelDTO hotelDTO)
         {
-        await _hotel.Create(hotel);
+        await _hotel.Create(hotelDTO);
 
-            return CreatedAtAction("GetHotel", new { id = hotel.Id }, hotel);
+            return CreatedAtAction("GetHotel", new { id = hotelDTO.ID }, hotelDTO);
         }
 
         // DELETE: api/Hotels/5
