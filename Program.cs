@@ -25,8 +25,24 @@ namespace AsyncInnManagementSystem
             builder.Services.AddTransient<IRoom, RoomServies>();
             builder.Services.AddTransient<IAmenities, AmenitiesServies>();
           builder.Services.AddTransient<IHotelRoom, HotelRoomServies>();
-
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "hotel API",
+                    Version = "v1",
+                });
+            });
             var app = builder.Build();
+            app.UseSwagger(aptions =>
+            {
+                aptions.RouteTemplate = "/api/{documentName}/swagger.json";
+            });
+            app.UseSwaggerUI(aptions =>
+            {
+                aptions.SwaggerEndpoint("/api/v1/swagger.json", "School API");
+                aptions.RoutePrefix = "docs";
+            });
             app.MapControllers();
             app.MapGet("/", () => "Hello World!");
             app.MapGet("/test", () => "Hello from test !");

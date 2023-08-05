@@ -11,7 +11,11 @@ namespace AsyncInnManagementSystem.Models.Services
 
         public RoomServies(HotelDbContext context){
             _context = context;
-        }
+        }/// <summary>
+        /// add new room
+        /// </summary>
+        /// <param name="roomDTO"></param>
+        /// <returns></returns>
         public async Task<RoomDTO> Create(RoomDTO roomDTO)
         {
             var room = new Room
@@ -27,15 +31,28 @@ namespace AsyncInnManagementSystem.Models.Services
             roomDTO.ID = room.Id;
             return roomDTO;
         }
-
-        public async Task DeleteRoom(int id)
+        /// <summary>
+        /// delete spasfic room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteRoom(int id)
         {
-            RoomDTO  room = await GetRoomById(id);
-            _context.Entry(room).State = EntityState.Deleted;
-            await _context.SaveChangesAsync();
-        }
-      
+            Room room = await _context.Rooms.FindAsync(id);
+            if (room != null)
+            {
+                _context.Rooms.Remove(room);
+                await _context.SaveChangesAsync();
+                return true; // Return true to indicate successful deletion
+            }
 
+            return false; // Return false to indicate room not found
+        }
+
+        /// <summary>
+        /// get all the rooms 
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<RoomDTO>> GetAllRooms()
         {
             var allRooms = await _context.Rooms.Select(r => new RoomDTO
@@ -54,7 +71,11 @@ namespace AsyncInnManagementSystem.Models.Services
             return allRooms;
         }
 
-
+        /// <summary>
+        /// get room by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<RoomDTO> GetRoomById(int id)
         {
             var room = await _context.Rooms.Select(r => new RoomDTO
@@ -73,7 +94,12 @@ namespace AsyncInnManagementSystem.Models.Services
 
             return room;
         }
-
+        /// <summary>
+        /// update the data of spasfic room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roomDTO"></param>
+        /// <returns></returns>
         public async Task<RoomDTO> UpdateRooms(int id, RoomDTO roomDTO)
         {
             var room = await _context.Rooms.FindAsync(id);
@@ -91,7 +117,12 @@ namespace AsyncInnManagementSystem.Models.Services
             }
 
             return roomDTO;
-        }
+        }/// <summary>
+        /// add amenity to a spasfic room
+        /// </summary>
+        /// <param name="roomId"></param>
+        /// <param name="amenityId"></param>
+        /// <returns></returns>
         public async Task AddAmenityToRoom(int roomId, int amenityId)
         {
             var room = await _context.Rooms
@@ -107,7 +138,12 @@ namespace AsyncInnManagementSystem.Models.Services
                 await _context.SaveChangesAsync();
             }
         }
-
+        /// <summary>
+        /// delete amenity from a room
+        /// </summary>
+        /// <param name="roomId"></param>
+        /// <param name="amenityId"></param>
+        /// <returns></returns>
         public async Task RemoveAmenityFromRoom(int roomId, int amenityId)
         {
             var room = await _context.Rooms

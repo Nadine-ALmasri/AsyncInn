@@ -13,6 +13,12 @@ namespace AsyncInnManagementSystem.Models.Services
         {
             _context = context;
         }
+        /// <summary>
+		/// Create a new Amenity
+		/// </summary>
+		/// <param name="amenityDTO"></param>
+		/// <returns></returns>
+		
         public async Task<AmenityDTO> CreateAmenity(AmenityDTO amenity)
         {
             Amenity amenity1 = new Amenity();
@@ -24,7 +30,11 @@ namespace AsyncInnManagementSystem.Models.Services
             await _context.SaveChangesAsync();
             return amenity;
         }
-
+        /// <summary>
+        /// DeleteAmenity
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task DeleteAmenity(int id)
         {
             AmenityDTO amenityDTO = await GetAmenityById(id);
@@ -39,7 +49,10 @@ namespace AsyncInnManagementSystem.Models.Services
                
             _context.Entry(amenity).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
-        }
+        }/// <summary>
+         ///  GetAllAmenities
+         /// </summary>
+         /// <returns>amenities</returns>
         public Task<List<AmenityDTO>> GetAllAmenities()
         {
 
@@ -51,7 +64,11 @@ namespace AsyncInnManagementSystem.Models.Services
             }).ToListAsync();
             return amenities;
         }
-
+        /// <summary>
+        /// GetAmenityById
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<AmenityDTO> GetAmenityById(int id)
         {
             var amenity = await _context.Amenities.Select(a => new AmenityDTO()
@@ -62,7 +79,12 @@ namespace AsyncInnManagementSystem.Models.Services
         
             return amenity;
         }
-
+        /// <summary>
+        /// update amenity with spasfic id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="amenityDTO"></param>
+        /// <returns></returns>
         public async Task<AmenityDTO> UpdateAmenity(int id, AmenityDTO amenityDTO)
         {
             var amenity = await _context.Amenities.FindAsync(id);
