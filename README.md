@@ -220,3 +220,14 @@ Request Body:
 Result :
 
 ![](./lab16-5.PNG)
+
+
+## Summary For Lab-17
+ we worked on testing methods for an AsyncInn Management System using C# and Entity Framework Core. The system manages hotels, rooms, and amenities in a database. Our main focus was on writing unit tests to ensure the correct functionality of the services that interact with the database.
+ ## Accomplishments
+- **HotelServices Testing**: We wrote test methods for the HotelServices class. We covered creating new hotels, deleting hotels, and updating hotel information. We used a mock database context to isolate the tests and ensure they don't affect the real database.
+
+- **RoomServices Testing**: Similar to the hotel services, we wrote test methods for the RoomServices class. We tested creating new rooms, deleting rooms, and updating room information. Again, we used a mock database context for testing.
+
+## Overall
+we made significant progress in testing the AsyncInn Management System, addressed errors, and gained insights into the best practices for writing unit tests in C#.

@@ -14,7 +14,12 @@ namespace AsyncInnManagementSystem.Models.Services
         public HotelRoomServies(HotelDbContext context)
         {
             _context = context;
-        }
+        }/// <summary>
+        /// create new hotelroom
+        /// </summary>
+        /// <param name="hotelId"></param>
+        /// <param name="HotelRoomDTO"></param>
+        /// <returns></returns>
         public async Task<HotelRoomDTO> CreateHotelRoom(int hotelId, HotelRoomDTO HotelRoomDTO)
         {
             var room = await _context.Rooms.FindAsync(HotelRoomDTO.RoomID);
@@ -35,7 +40,12 @@ namespace AsyncInnManagementSystem.Models.Services
 
             return HotelRoomDTO;
         }
-
+        /// <summary>
+        /// delete a spasfic hotel
+        /// </summary>
+        /// <param name="hotelId"></param>
+        /// <param name="roomNumber"></param>
+        /// <returns></returns>
         public async Task DeleteHotelRoom(int hotelId, int roomNumber)
         {
             var hotelRoom = await _context.HotelRooms.FirstOrDefaultAsync(hr => hr.HotelId == hotelId && hr.RoomNumber == roomNumber);
@@ -46,7 +56,11 @@ namespace AsyncInnManagementSystem.Models.Services
                 await _context.SaveChangesAsync();
             }
         }
-
+        /// <summary>
+        /// get all the hotelrooms in a list
+        /// </summary>
+        /// <param name="hotelId"></param>
+        /// <returns></returns>
         public Task<List<HotelRoomDTO>> GetAllHotelRoom(int hotelId)
         {
             var allHotelRomms = _context.HotelRooms.Select(h => new HotelRoomDTO()
@@ -76,7 +90,12 @@ namespace AsyncInnManagementSystem.Models.Services
     }
 
 
-
+        /// <summary>
+        /// get room details 
+        /// </summary>
+        /// <param name="hotelId"></param>
+        /// <param name="roomNumber"></param>
+        /// <returns></returns>
 
     public async Task<HotelRoomDTO> GetRoomDetails(int hotelId, int roomNumber)
     {
@@ -110,7 +129,13 @@ namespace AsyncInnManagementSystem.Models.Services
 
         return roomDetails;
     }
-
+        /// <summary>
+        /// update spasfic room hotel
+        /// </summary>
+        /// <param name="hotelId"></param>
+        /// <param name="roomNumber"></param>
+        /// <param name="room"></param>
+        /// <returns></returns>
         public async Task<HotelRoomDTO> UpdateHotelsRoom(int hotelId, int roomNumber, HotelRoomDTO room)
         {
             var hotelRoom = await _context.HotelRooms.FirstOrDefaultAsync(hr => hr.HotelId == hotelId && hr.RoomNumber == roomNumber);
