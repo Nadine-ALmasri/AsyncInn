@@ -40,7 +40,7 @@ namespace AsyncInnManagementSystem
             });
             app.UseSwaggerUI(aptions =>
             {
-                aptions.SwaggerEndpoint("/api/v1/swagger.json", "School API");
+                aptions.SwaggerEndpoint("/api/v1/swagger.json", "Hotel API");
                 aptions.RoutePrefix = "docs";
             });
             app.MapControllers();
