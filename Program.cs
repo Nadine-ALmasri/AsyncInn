@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AsyncInnManagementSystem.Models.Interfaces;
 using AsyncInnManagementSystem.Models.Services;
+using AsyncInnManagementSystem.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace AsyncInnManagementSystem
 {
@@ -20,7 +22,16 @@ namespace AsyncInnManagementSystem
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
          options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
        );
-            // Other service registrations...
+            /// regstor the identty
+          builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                
+                // There are other options like this
+            })
+.AddEntityFrameworkStores<HotelDbContext>();
+            builder.Services.AddTransient<IUser, UserServies>();
+
             builder.Services.AddTransient<IHotels, HotelsServies>();
             builder.Services.AddTransient<IRoom, RoomServies>();
             builder.Services.AddTransient<IAmenities, AmenitiesServies>();
@@ -33,6 +44,7 @@ namespace AsyncInnManagementSystem
                     Version = "v1",
                 });
             });
+
             var app = builder.Build();
             app.UseSwagger(aptions =>
             {

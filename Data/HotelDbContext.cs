@@ -1,10 +1,11 @@
 ﻿
 using AsyncInnManagementSystem.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AsyncInnManagementSystem.Data
 {
-    public class HotelDbContext : DbContext
+    public class HotelDbContext : IdentityDbContext<ApplicationUser>
     {
         public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options)
         {

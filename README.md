@@ -231,3 +231,46 @@ Result :
 
 ## Overall
 we made significant progress in testing the AsyncInn Management System, addressed errors, and gained insights into the best practices for writing unit tests in C#.
+
+
+
+# Async Inn API with Identity Integration
+
+## Introduction
+
+This project integrates the Identity Framework into the Async Inn API. Identity is a framework provided by ASP.NET Core that enables user authentication and authorization in web applications. With Identity, you can manage user registration, login, and access control in a secure and efficient manner.
+## Getting Started
+
+To run this project locally, follow these steps:
+
+1. Clone the repository to your local machine.
+2. Set up your database connection in the `appsettings.json` file.
+3. Run migrations to create the necessary database tables
+4. Run The application .
+
+
+
+## User Registration
+- Open your preferred API testing tool (such as Postman) or just run the test which will use swagger.
+- Send a POST request to the following endpoint to register a new user:
+        
+      - POST /api/Users/Register
+- Include the following JSON data in the request body:
+ ![](./lab18.PNG)
+- Upon successful registration, you will receive a response indicating the user's UserName and a unique user ID.
+
+![](./lab18-3.PNG)
+## User Login
+
+- Send a POST request to the following endpoint to authenticate a user:
+
+        POST /api/Users/login
+- Include the following JSON data in the request body:
+ ![](./lab18-2.PNG)
+- If the credentials are correct, you will receive a response with a Success authentication indicating the user's UserName and  user ID.
+ ![](./lab18-4.PNG)
+ ## Conclusion
+By integrating Identity into the Async Inn API, you've enabled secure user registration and authentication. Identity handles the complex aspects of user management, leaving you with a robust foundation for building user-centric applications.
+
+For a visual representation of the process flow surrounding User Registration and Login, refer to the UML diagram provided in the project's documentation.
+ ![](./lab18-5.PNG)
