@@ -9,6 +9,8 @@ using AsyncInnManagementSystem.Data;
 using AsyncInnManagementSystem.Models;
 using AsyncInnManagementSystem.Models.Interfaces;
 using AsyncInnManagementSystem.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace AsyncInnManagementSystem.Controller
 {
@@ -43,7 +45,7 @@ namespace AsyncInnManagementSystem.Controller
             }
             return room;
         }
-
+        [Authorize(Roles = "District Manager, Property Manager")]
         // PUT: api/Hotels/{hotelId}/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{roomNumber}")]
@@ -62,7 +64,7 @@ namespace AsyncInnManagementSystem.Controller
             return NoContent();
 
         }
-
+        [Authorize(Roles = "District Manager, Property Manager")]
         // POST: api/Hotels/{hotelId}/Rooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -76,7 +78,7 @@ namespace AsyncInnManagementSystem.Controller
             return Ok (addedRoom);
 
         }
-
+        [Authorize(Roles = "District Manager, Property Manager")]
         // DELETE: api/Hotels/{hotelId}/Rooms/5
         [HttpDelete()]
         [Route("/api/Hotels/{hotelId}/Rooms/{roomNumber}")]

@@ -274,3 +274,21 @@ By integrating Identity into the Async Inn API, you've enabled secure user regis
 
 For a visual representation of the process flow surrounding User Registration and Login, refer to the UML diagram provided in the project's documentation.
  ![](./lab18-5.PNG)
+
+# lab 19
+## Features
+- District Managers can perform CRUD operations on Hotel, HotelRoom, Room, and Amenity entities.
+- Property Managers can add/update/read HotelRooms to hotels and amenities to rooms.
+- Agents can update/read HotelRooms and add/delete amenities to rooms.
+- Anonymous users can view GET routes.
+- District Managers can create accounts for all roles.
+- Property Managers can only create accounts for Agents.
+## add and test the token 
+ ![](./lab19-1.PNG)
+  ![](./lab19-2.PNG)
+## make the profile rout as a role only for distract manger 
+ ![](./lab19-4.PNG)
+  ![](./lab19-3.PNG)
+ 
+  ## Conclusion
+  In conclusion, today's work on the AsyncInn Management System marks a significant step towards creating a robust and user-friendly hotel management application. By implementing user roles, access controls, API endpoints, registration, and login functionalities, we have laid the foundation for a secure and efficient platform that caters to the specific needs of different users within the hospitality industry.

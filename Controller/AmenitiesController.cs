@@ -10,6 +10,8 @@ using AsyncInnManagementSystem.Models;
 using AsyncInnManagementSystem.Models.Interfaces;
 using Microsoft.VisualBasic;
 using AsyncInnManagementSystem.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace AsyncInnManagementSystem.Controller
 {
@@ -40,7 +42,7 @@ namespace AsyncInnManagementSystem.Controller
 
             return amenity;
         }
-
+        [Authorize(Roles = "District Manager, Property Manager")]
         // PUT: api/Amenities/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -57,6 +59,7 @@ namespace AsyncInnManagementSystem.Controller
         }
 
         // POST: api/Amenities
+        [Authorize(Roles = "District Manager, Property Manager")]
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<AmenityDTO>> PostAmenity(AmenityDTO amenity)
@@ -66,7 +69,7 @@ namespace AsyncInnManagementSystem.Controller
             return CreatedAtAction("GetAmenity", new { id = amenity.ID }, amenity);
         }
 
-        // DELETE: api/Amenities/5
+        [Authorize(Roles = "District Manager, Property Manager")]// DELETE: api/Amenities/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAmenity(int id)
         {
