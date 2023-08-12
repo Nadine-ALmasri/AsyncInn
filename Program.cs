@@ -8,6 +8,7 @@ using AsyncInnManagementSystem.Models.Interfaces;
 using AsyncInnManagementSystem.Models.Services;
 using AsyncInnManagementSystem.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace AsyncInnManagementSystem
 {
@@ -36,6 +37,18 @@ namespace AsyncInnManagementSystem
             builder.Services.AddTransient<IRoom, RoomServies>();
             builder.Services.AddTransient<IAmenities, AmenitiesServies>();
           builder.Services.AddTransient<IHotelRoom, HotelRoomServies>();
+            builder.Services.AddScoped<JWTServies>();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = JWTServies.GetValidationPerameters(builder.Configuration);
+            });
+
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
@@ -46,6 +59,8 @@ namespace AsyncInnManagementSystem
             });
 
             var app = builder.Build();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseSwagger(aptions =>
             {
                 aptions.RouteTemplate = "/api/{documentName}/swagger.json";
@@ -58,7 +73,6 @@ namespace AsyncInnManagementSystem
             app.MapControllers();
             app.MapGet("/", () => "Hello World!");
             app.MapGet("/test", () => "Hello from test !");
-
             app.Run();
         }
     }

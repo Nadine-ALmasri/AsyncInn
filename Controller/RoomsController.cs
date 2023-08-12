@@ -9,6 +9,8 @@ using AsyncInnManagementSystem.Data;
 using AsyncInnManagementSystem.Models;
 using AsyncInnManagementSystem.Models.Interfaces;
 using AsyncInnManagementSystem.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace AsyncInnManagementSystem.Controller
 {
@@ -41,6 +43,8 @@ namespace AsyncInnManagementSystem.Controller
         // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "District Manager")]
+
         public async Task<IActionResult> PutRoom(int id, RoomDTO room)
         {
             if (id != room.ID)
@@ -53,6 +57,7 @@ namespace AsyncInnManagementSystem.Controller
            
         }
 
+        [Authorize(Roles = "District Manager")]
         // POST: api/Rooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -62,6 +67,7 @@ namespace AsyncInnManagementSystem.Controller
 
             return CreatedAtAction("GetRoom", new { id = roomDTO.ID }, roomDTO);
         }
+        [Authorize(Roles = "District Manager")]
 
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
@@ -71,6 +77,8 @@ namespace AsyncInnManagementSystem.Controller
 
             return NoContent();
         }
+        [Authorize(Roles = "District Manager, Property Manager")]
+
         // POST: api/Rooms/{roomId}/Amenity/{amenityId}
         [HttpPost("{roomId}/Amenity/{amenityId}")]
         public async Task<IActionResult> AddAmenityToRoom(int roomId, int amenityId)
@@ -78,6 +86,7 @@ namespace AsyncInnManagementSystem.Controller
             await _room.AddAmenityToRoom(roomId, amenityId);
             return NoContent();
         }
+        [Authorize(Roles = "District Manager, Property Manager")]
 
         // DELETE: api/Rooms/{roomId}/Amenity/{amenityId}
         [HttpDelete("{roomId}/Amenity/{amenityId}")]

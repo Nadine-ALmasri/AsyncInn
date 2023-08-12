@@ -4,6 +4,7 @@ using AsyncInnManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncInnManagementSystem.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230812184729_seedingRoles")]
+    partial class seedingRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -302,28 +305,28 @@ namespace AsyncInnManagementSystem.Migrations
                             Id = "districtmanager",
                             ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
                             Name = "District Manager",
-                            NormalizedName = "DISTRICT MANAGER"
+                            NormalizedName = "District Manager"
                         },
                         new
                         {
                             Id = "propertymanager",
                             ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
                             Name = "Property Manager",
-                            NormalizedName = "PROPERTY MANAGER"
+                            NormalizedName = "Property Manager"
                         },
                         new
                         {
                             Id = "agent",
                             ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
                             Name = "Agent",
-                            NormalizedName = "AGENT"
+                            NormalizedName = "Agent"
                         },
                         new
                         {
                             Id = "anonymoususers",
                             ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
                             Name = "Anonymous users",
-                            NormalizedName = "ANONYMOUS USERS"
+                            NormalizedName = "Anonymous users"
                         });
                 });
 
@@ -377,50 +380,50 @@ namespace AsyncInnManagementSystem.Migrations
                         {
                             Id = 14,
                             ClaimType = "permissions",
-                            ClaimValue = "read",
-                            RoleId = "districtmanager"
+                            ClaimValue = "create",
+                            RoleId = "propertymanager"
                         },
                         new
                         {
                             Id = 15,
                             ClaimType = "permissions",
-                            ClaimValue = "create",
+                            ClaimValue = "update",
                             RoleId = "propertymanager"
                         },
                         new
                         {
                             Id = 16,
                             ClaimType = "permissions",
-                            ClaimValue = "update",
-                            RoleId = "propertymanager"
+                            ClaimValue = "create",
+                            RoleId = "agent"
                         },
                         new
                         {
                             Id = 17,
                             ClaimType = "permissions",
-                            ClaimValue = "read",
-                            RoleId = "propertymanager"
+                            ClaimValue = "update",
+                            RoleId = "agent"
                         },
                         new
                         {
                             Id = 18,
                             ClaimType = "permissions",
-                            ClaimValue = "create",
+                            ClaimValue = "delete",
                             RoleId = "agent"
                         },
                         new
                         {
                             Id = 19,
                             ClaimType = "permissions",
-                            ClaimValue = "update",
-                            RoleId = "agent"
+                            ClaimValue = "create",
+                            RoleId = "anonymoususers"
                         },
                         new
                         {
                             Id = 20,
                             ClaimType = "permissions",
-                            ClaimValue = "read",
-                            RoleId = "agent"
+                            ClaimValue = "update",
+                            RoleId = "anonymoususers"
                         });
                 });
 

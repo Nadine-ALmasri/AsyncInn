@@ -1,6 +1,7 @@
 ﻿using AsyncInnManagementSystem.Models.DTO;
 using AsyncInnManagementSystem.Models.Interfaces;
 using AsyncInnManagementSystem.Models.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,19 @@ namespace AsyncInnManagementSystem.Controller
         {
             userServies = services;
         }
+        [Authorize(Roles = "Property Manager")]
+        [HttpPost("Register/Agent")]
+        public async Task<ActionResult<UserDTO>> RegisterAgent(RegisterDTO Data)
+        {
+            var agentUser = await userServies.RegisterAgent(Data, ModelState);
+            if (ModelState.IsValid)
+            {
+                return agentUser;
+            }
+            return BadRequest(new ValidationProblemDetails(ModelState));
+        }
+        [Authorize(Roles = "District Manager")]
+
         [HttpPost("Register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO Data)
         {
@@ -36,6 +50,11 @@ namespace AsyncInnManagementSystem.Controller
             }
             return Ok(user);
         }
-
+        [Authorize (Roles =  "District Manager")]
+        [HttpGet("Profile")]
+        public async Task<ActionResult<UserDTO>> Profile()
+        {
+            return await userServies.GetUser(this.User);
+        }
     }
 }

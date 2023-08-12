@@ -9,6 +9,8 @@ using AsyncInnManagementSystem.Data;
 using AsyncInnManagementSystem.Models;
 using AsyncInnManagementSystem.Models.Interfaces;
 using AsyncInnManagementSystem.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace AsyncInnManagementSystem.Controller
 {
@@ -41,6 +43,7 @@ namespace AsyncInnManagementSystem.Controller
 
             return hotel;
         }
+        [Authorize(Roles = "District Manager")]
 
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -55,6 +58,7 @@ namespace AsyncInnManagementSystem.Controller
             var updatedCourse = await _hotel.UpdateHotels(id, hotelDTO);
             return Ok(updatedCourse);
         }
+        [Authorize(Roles = "District Manager")]
 
         // POST: api/Hotels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -65,6 +69,7 @@ namespace AsyncInnManagementSystem.Controller
 
             return CreatedAtAction("GetHotel", new { id = hotelDTO.ID }, hotelDTO);
         }
+        [Authorize(Roles = "District Manager")]
 
         // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
